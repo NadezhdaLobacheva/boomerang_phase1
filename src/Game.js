@@ -6,6 +6,7 @@ const Hero = require('./game-models/Hero');
 const Enemy = require('./game-models/Enemy');
 const Boomerang = require('./game-models/Boomerang');
 const View = require('./View');
+const {User} = require('../db/models')
 
 // Основной класс игры.
 // Тут будут все настройки, проверки, запуск.
@@ -19,7 +20,11 @@ class Game {
     this.view = new View();
     this.track = [];
     this.regenerateTrack();
+    this.intervalId = null;
+    this.kills = 0
   }
+
+
 
   regenerateTrack() {
     // Сборка всего необходимого (герой, враг(и), оружие)
@@ -34,11 +39,17 @@ class Game {
     this.track[this.hero.boomerang.positionY][this.hero.boomerang.positionX] = this.hero.boomerang.skin;
   }
 
-  check() {
-    if (this.hero.positionX === this.enemy.positionX && this.hero.positionY === this.enemy.positionY) {
+
+ async check(fullName, kills) {
+    if (this.hero.positionX === this.enemy.positionX && this.hero.positionY === this.enemy.positionY && this.intervalId !== null) {
       this.hero.die();
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+      console.log('Игра окончена! Герой погиб.');
+      await User.create({fullName, kills})
+      process.exit();
     }
-    
+
     if(this.hero.boomerang.positionX < this.trackLength - 1 && this.hero.boomerang.direction === 'Right') {
       this.hero.boomerang.moveRight()
     }
@@ -60,6 +71,7 @@ class Game {
       this.enemy.die()
       this.enemy = new Enemy();
       this.hero.boomerang.direction = 'Left'
+      this.kills +=1
     }
 
     // if (this.hero.boomerang === this.trackLength - 1 || this.hero.boomerang.position === this.enemy.position){
@@ -73,15 +85,20 @@ class Game {
     }
   }
 
-  play() {
+  play(fullName) {
     runInteractiveConsole(this)
-    setInterval(() => {
-      // Let's play!
-      this.check();
-      this.regenerateTrack();
-      this.view.render(this.track);
-    }, 100);
+     if (this.intervalId === null) { 
+      this.intervalId = setInterval(() => {
+        if (this.intervalId !== null) { 
+          this.check(fullName, this.kills);
+          if (this.intervalId !== null) { 
+            this.regenerateTrack();
+            this.view.render(this.track,this.kills);
+          }
+        }}, 100);
+
   }
+}
 }
 
 module.exports = Game;
