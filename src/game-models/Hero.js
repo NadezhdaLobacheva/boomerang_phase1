@@ -1,8 +1,8 @@
 // Наш герой.
 
 class Hero {
-  constructor({boomerang}) {
-    this.skin = '🤠'; // можете использовать любые emoji '💃'
+  constructor({ boomerang }) {
+    this.skin = '🐺'; // можете использовать любые emoji '💃'
     this.positionX = 0;
     this.boomerang = boomerang;
     this.positionY = 0;
@@ -12,10 +12,12 @@ class Hero {
     // Идём влево.
     this.positionY -= 1;
   }
+
   moveDown() {
     // Идём влево.
     this.positionY += 1;
   }
+
   moveLeft() {
     // Идём влево.
     this.positionX -= 1;

@@ -4,7 +4,7 @@
 
 class Boomerang {
   constructor() {
-    this.skin = '🌀';
+    this.skin = '💩';
     this.direction = 'Right'
     this.positionX = undefined;
     this.positionY = 0;
