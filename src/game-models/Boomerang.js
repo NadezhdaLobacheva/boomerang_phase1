@@ -5,8 +5,9 @@
 class Boomerang {
   constructor() {
     this.skin = '🌀';
-    this.position = undefined;
     this.direction = 'Right'
+    this.positionX = undefined;
+    this.positionY = 0;
   }
 
   // fly() {
@@ -16,12 +17,12 @@ class Boomerang {
 
   moveLeft() {
     // Идём влево.
-    this.position -= 1;
+    this.positionX -= 1;
   }
 
   moveRight() {
     // Идём вправо.
-    this.position += 1;
+    this.positionX += 1;
   }
 }
 

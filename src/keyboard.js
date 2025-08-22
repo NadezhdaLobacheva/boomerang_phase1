@@ -11,15 +11,21 @@ const keypress = require('keypress');
 
 function runInteractiveConsole(game) {
   const keyboard = {
-  w: () => console.log('w'),
+  w: () => {if (game.hero.positionY > 0) {
+      game.hero.moveUp()
+    }
+  },
   a: () => {
-    if (game.hero.position > 0) {
+    if (game.hero.positionX > 0) {
       game.hero.moveLeft()
     }
   },
-  s: () => console.log('s'),
+  s: () => {if (game.hero.positionY < 9) {
+      game.hero.moveDown()
+    }
+  },
   d: () => {
-    if(game.hero.position < game.enemy.position) {
+    if(game.hero.positionX < 59) {
       game.hero.moveRight()
     }
   },
