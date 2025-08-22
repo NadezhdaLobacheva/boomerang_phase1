@@ -18,6 +18,7 @@ class Game {
     this.enemy = new Enemy();
     this.view = new View();
     this.track = [];
+    this.kills = 0;
     this.regenerateTrack();
   }
 
@@ -26,7 +27,7 @@ class Game {
     // в единую структуру данных
     this.track = []
     for (let i = 0 ; i < this.trackLengthY; i++){
-    let trackLine = new Array(this.trackLength).fill(' ')
+    const trackLine = new Array(this.trackLength).fill(' ')
     this.track.push(trackLine)
     }
     this.track[this.hero.positionY][this.hero.positionX] = this.hero.skin;
@@ -57,6 +58,7 @@ class Game {
     }
 
     if ((this.enemy.positionX === this.hero.boomerang.positionX ||this.enemy.positionX === this.hero.boomerang.positionX - 1) && this.enemy.positionY === this.hero.boomerang.positionY) {
+      this.kills += 1
       this.enemy.die()
       this.enemy = new Enemy();
       this.hero.boomerang.direction = 'Left'
@@ -79,7 +81,7 @@ class Game {
       // Let's play!
       this.check();
       this.regenerateTrack();
-      this.view.render(this.track);
+      this.view.render(this.track, this.kills);
     }, 100);
   }
 }
