@@ -3,7 +3,7 @@ const figlet = require('figlet');
 // Сделаем отдельный класс для отображения игры в консоли.
 
 class View {
-  render(track, kills) {
+  render(track, kills, name) {
     const yourTeamName = 'Werewolves';
 
     // Тут всё рисуем.
@@ -13,17 +13,19 @@ class View {
     });
     console.log('\n');
     console.log(
-      chalk.greenBright('____________________________________________________________'),
+      chalk.greenBright('┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓'),
     );
     console.log('\n');
     console.log(track.map((el) => el.join('')).join('\r\n'));
     console.log('\n');
     console.log(
-      chalk.greenBright('____________________________________________________________'),
+      chalk.greenBright('┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛'),
     );
     console.log('\n');
+    console.log(chalk.yellowBright('Твое имя: ', name));
     console.log(chalk.yellowBright(`Убито врагов: ${kills} 💩`));
-    console.log('\n\n');
+    console.timeLog(chalk.yellowBright('Ты жив уже'));
+    console.log('\n');
     console.log(chalk.greenBright(`Created by "${yourTeamName} 🐺" with love ❤`));
   }
 }
