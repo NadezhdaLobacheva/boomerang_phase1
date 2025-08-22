@@ -3,7 +3,8 @@
 class Enemy {
   constructor() {
     this.generateSkin();
-    this.position = 59;
+    this.positionX = 59;
+    this.positionY = Math.floor(Math.random()*10)
   }
 
   generateSkin() {
@@ -13,7 +14,7 @@ class Enemy {
 
   moveLeft() {
     // Идём влево.
-    this.position -= 1;
+    this.positionX -= 1;
   }
 
   die() {
