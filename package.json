@@ -4,6 +4,8 @@
   "description": "Настало время разрабатывать лучшие в мире игры!",
   "main": "run.js",
   "dependencies": {
+    "chalk": "^5.6.0",
+    "figlet": "^1.8.2",
     "find-exec": "^1.0.2",
     "keypress": "^0.2.1",
     "play-sound": "^1.1.5"
@@ -20,12 +22,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-  "db:create": "npx sequelize db:create",
-"db:migrate": "npx sequelize db:migrate",
-"db:undoMigrate": "npx sequelize db:migrate:undo:all",
- "db:seedAll": "npx sequelize db:seed:all", 
- "db:drop": "npx sequelize db:drop",
-"db:remigrate": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all"
+    "db:create": "npx sequelize db:create",
+    "db:migrate": "npx sequelize db:migrate",
+    "db:undoMigrate": "npx sequelize db:migrate:undo:all",
+    "db:seedAll": "npx sequelize db:seed:all",
+    "db:drop": "npx sequelize db:drop",
+    "db:remigrate": "npx sequelize db:migrate:undo:all && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
