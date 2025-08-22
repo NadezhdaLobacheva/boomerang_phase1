@@ -1,7 +1,7 @@
 // Импортируем всё необходимое.
 // Или можно не импортировать,
 // а передавать все нужные объекты прямо из run.js при инициализации new Game().
-const keyboard = require('./keyboard')
+const runInteractiveConsole = require('./keyboard')
 const Hero = require('./game-models/Hero');
 const Enemy = require('./game-models/Enemy');
 const Boomerang = require('./game-models/Boomerang');
@@ -35,18 +35,36 @@ class Game {
       this.hero.die();
     }
     
-    if(this.hero.boomerang.position < this.enemy.position) {
-      this.hero.boomerang.fly()
+    if(this.hero.boomerang.position < this.enemy.position && this.hero.boomerang.direction === 'Right') {
+      this.hero.boomerang.moveRight()
     }
 
-    if (this.hero.boomerang === this.trackLength - 1 || this.hero.boomerang.position === this.enemy.position){
+    if (this.hero.boomerang.position < this.enemy.position && this.hero.boomerang.direction === 'Left') {
+      this.hero.boomerang.moveLeft()
+    } 
+
+    if (this.hero.position === this.hero.boomerang.position) {
       this.hero.boomerang.position = undefined
+      this.hero.boomerang.direction = 'Right'
     }
 
+    if (this.enemy.position === this.hero.boomerang.position) {
+      this.enemy.die()
+      this.enemy = new Enemy();
+      this.hero.boomerang.direction = 'Left'
+    }
+
+    // if (this.hero.boomerang === this.trackLength - 1 || this.hero.boomerang.position === this.enemy.position){
+    //   this.hero.boomerang.position = undefined
+    // }
+
+    if (this.enemy.position > this.hero.position) {
+      this.enemy.moveLeft()
+    }    
   }
 
   play() {
-    keyboard(this)
+    runInteractiveConsole(this)
     setInterval(() => {
       // Let's play!
       this.check();
